@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiderman - no way home</title>
+
+    <!-- external CSS -->
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body class="main">
+    <header class="container">
+        <div class="nav">
+            <i class="fas fa-bars ham-icon icon"></i>
+            <i class="fas fa-times close-icon icon hide"></i>
+        </div>
+        <ul class="menu-list hide">
+            <li class="menu-item" id="home">Home</li>
+            <li class="menu-item" id="trailer">Trailer</li>
+            <li class="menu-item" id="details">Details</li>
+        </ul>
+    </header>
+
+    <div class="content container">
+        <div class="info">
+            <h2 class="title">Overview</h2>
+            <p class="para">
+                With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.
+            </p>
+            <button class="btn">Learn More</button>
+            <button class="yt-btn hide">
+                <i class="fab fa-youtube yt-icon"></i>
+                Watch now
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const pages = {
+            home: {
+                title: "Overview",
+                image: "./images/1.jpg",
+                para: `With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero.\nWhen Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.`
+            },
+            trailer: {
+                title: "Trailers",
+                image: "./images/3.jpg",
+                para: 'Watch latest trailers on youtube'
+            },
+            details: {
+                title: "Info",
+                image: "./images/2.jpg",
+                para: 'Releasing on: 17 Dec 2021 \nCast: Tom Holland\nMarvel Production'
+            }
+        }
+
+        const hamButton = document.getElementsByClassName("ham-icon")[0];
+        const closeButton = document.getElementsByClassName("close-icon")[0];
+
+        const toggleMenu = () => {
+            hamButton.classList.toggle("hide")
+            closeButton.classList.toggle("hide")
+            document.getElementsByClassName("main")[0].classList.toggle("overflow");
+            document.getElementsByClassName("menu-list")[0].classList.toggle("hide")
+            document.getElementsByClassName("nav")[0].classList.toggle("border")
+        }
+
+        hamButton.addEventListener("click", toggleMenu);
+        closeButton.addEventListener("click", toggleMenu);
+
+        const changePage = (id) => {
+            const page = pages[id];
+
+            if (page) {
+                if (id !== "home") {
+                    document.getElementsByClassName("btn")[0].classList.add("hide")
+                } else {
+                    document.getElementsByClassName("btn")[0].classList.remove("hide")
+                }
+                if (id !== "trailer") {
+                    document.getElementsByClassName("yt-btn")[0].classList.add("hide")
+                } else {
+                    document.getElementsByClassName("yt-btn")[0].classList.remove("hide")
+                }
+                document.getElementsByClassName("title")[0].innerHTML = page.title;
+                document.getElementsByClassName("para")[0].innerHTML = page.para;
+                document.getElementsByClassName("main")[0].style.background =
+                `linear-gradient(90deg, rgba(0,0,0,0.9), rgba(0,0,0,0.5)), url(${page.image})`;
+            }
+
+            toggleMenu();
+        }
+
+        const menus = document.querySelectorAll(".menu-item");
+        menus.forEach(menu => {
+            menu.addEventListener("click", () => changePage(menu.id))
+        })
+
+        document.getElementsByClassName("yt-btn")[0].addEventListener("click", () => {
+            window.open("https://www.youtube.com/watch?v=rt-2cxAiPJk", "_blank")
+        });
+    </script>
+</body>
+</html>
